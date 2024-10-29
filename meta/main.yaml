@@ -1,0 +1,8 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: "ggb-ans-git-role"
+  author: "Tomasz Sobczak"
+  description: "Git configuration role for Ansible"
+  license: "MIT License"
