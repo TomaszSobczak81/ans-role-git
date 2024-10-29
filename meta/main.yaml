@@ -2,7 +2,7 @@
 dependencies: []
 
 galaxy_info:
-  role_name: "ggb-ans-git-role"
+  role_name: "ggb-ans-role-git"
   author: "Tomasz Sobczak"
   description: "Git configuration role for Ansible"
   license: "MIT License"
