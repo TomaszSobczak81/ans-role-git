@@ -1,0 +1,35 @@
+# code: language=ansible
+- name: Ensure git configuration has user identity set
+  community.general.git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  with_items:
+    - { name: "user.name", value: "{{ ggb_git_user_name }}" }
+    - { name: "user.email", value: "{{ ggb_git_user_email }}" }
+
+- name: Ensure git configuration GPG signing with SSH key is enabled
+  community.general.git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  when: ggb_git_use_ssh_key_for_signing|bool
+  with_items:
+    - { name: "commit.gpgSign", value: "true" }
+    - { name: "gpg.format", value: "ssh" }
+    - { name: "tag.gpgSign", value: "true" }
+    - { name: "user.signingkey", value: "{{ ggb_git_gpg_user_ssh_signing_key_id }}" }
+
+- name: Ensure global .gitignore file is in place
+  ansible.builtin.copy:
+    src: "{{ ggb_git_core_excludesfile_src }}"
+    dest: "{{ ggb_git_core_excludesfile_dst }}"
+    mode: "0644"
+  when: ggb_git_use_core_excludesfile|bool
+
+- name: Ensure git configuration has "core.excludesfile" set
+  community.general.git_config:
+    name: "core.excludesfile"
+    value: "{{ ggb_git_core_excludesfile_dst }}"
+    scope: global
+  when: ggb_git_use_core_excludesfile|bool

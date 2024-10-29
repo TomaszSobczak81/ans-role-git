@@ -1,0 +1,4 @@
+ggb_git_core_excludesfile_src: "{{ role_path }}/files/gitignore_global"
+ggb_git_core_excludesfile_dst: "~/.gitignore_global"
+ggb_git_use_core_excludesfile: false
+ggb_git_use_ssh_key_for_signing: false
